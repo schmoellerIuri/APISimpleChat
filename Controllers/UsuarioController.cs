@@ -20,6 +20,7 @@ namespace APISimples.Controllers
         public async Task<ActionResult<List<UsuarioModel>>> GetUsers()
         {
             List<UsuarioModel> usuarios = await _UsuarioFactory.GetAllUsers();
+            usuarios.ForEach(u => u.password = "");
             return Ok(usuarios);
         }
 

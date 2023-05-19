@@ -1,4 +1,6 @@
-﻿namespace APISimples.Models
+﻿using System.Text.Json.Serialization;
+
+namespace APISimples.Models
 {
     public class MensagemModel
     {
@@ -10,8 +12,10 @@
 
         public string? conteudo { get; set; }
 
+        [JsonIgnore]
         public ConversaModel? conversa { get; set; }
 
+        [JsonIgnore]
         public UsuarioModel? remetente { get; set; }
 
     }

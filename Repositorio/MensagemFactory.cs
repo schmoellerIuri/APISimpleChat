@@ -7,10 +7,12 @@ namespace APISimples.Repositorio
     public class MensagemFactory : IMensagem
     {
         DataBaseContext _dbContext;
+        private readonly WSocketHandler _webSocketHandler;
 
-        public MensagemFactory(DataBaseContext dbContext)
+        public MensagemFactory(DataBaseContext dbContext, WSocketHandler webSocketHandler)
         {
             _dbContext = dbContext;
+            _webSocketHandler = webSocketHandler;
         }
 
         public async Task<MensagemModel> DeletarMensagem(int idMensagem)
@@ -29,6 +31,15 @@ namespace APISimples.Repositorio
         {
             await _dbContext.Mensagens.AddAsync(mensagem);
             _dbContext.SaveChanges();
+
+            var conversa = _dbContext.Conversas.FirstOrDefault(x => x.id == mensagem.conversaId);
+
+            if(_webSocketHandler.UserHasSocket(conversa.idUser1))
+                await _webSocketHandler.SendMessage(mensagem, conversa.idUser1);
+
+            if (_webSocketHandler.UserHasSocket(conversa.idUser2))
+                await _webSocketHandler.SendMessage(mensagem, conversa.idUser2);
+
             return mensagem;
         }
 

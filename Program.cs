@@ -27,7 +27,16 @@ builder.Services.AddScoped<IConversa, ConversaFactory>();
 
 builder.Services.AddScoped<IMensagem, MensagemFactory>();
 
+builder.Services.AddSingleton<WSocketHandler>();
+
 var app = builder.Build();
+
+var webSocketOptions = new WebSocketOptions
+{
+    KeepAliveInterval = TimeSpan.FromMinutes(2)
+};
+
+app.UseWebSockets(webSocketOptions);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
