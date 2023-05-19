@@ -11,7 +11,7 @@ namespace APISimples.Controllers
     {
         public IMensagem _MensagemFactory;
 
-        public MensagemController(IMensagem mensagemFactory) 
+        public MensagemController(IMensagem mensagemFactory)
         {
             _MensagemFactory = mensagemFactory;
         }
