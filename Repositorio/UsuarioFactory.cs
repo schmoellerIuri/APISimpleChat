@@ -26,6 +26,7 @@ namespace APISimples.Repositorio
 
         public async Task<UsuarioModel> Add(UsuarioModel usuario)
         {
+            if (usuario == null || String.IsNullOrEmpty(usuario.password)  || String.IsNullOrEmpty(usuario.username)) throw new Exception("Credenciais invalidas");
             usuario.password = ComputeMD5(usuario.password);
             await _dbContext.Usuarios.AddAsync(usuario);
             _dbContext.SaveChanges();

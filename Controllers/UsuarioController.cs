@@ -55,15 +55,29 @@ namespace APISimples.Controllers
         [HttpPost]
         public async Task<ActionResult<List<UsuarioModel>>> AddUser([FromBody] UsuarioModel user)
         {
-            var usuario = await _UsuarioFactory.Add(user);
-            return Ok(usuario);
+            try
+            {
+                var usuario = await _UsuarioFactory.Add(user);
+                return Ok(usuario.id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         public async Task<ActionResult<List<UsuarioModel>>> Update([FromBody] UsuarioModel user)
         {
-            var usuario = await _UsuarioFactory.Update(user, user.id);
-            return Ok(usuario);
+            try
+            {
+                var usuario = await _UsuarioFactory.Update(user, user.id);
+                return Ok(usuario.id);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }
