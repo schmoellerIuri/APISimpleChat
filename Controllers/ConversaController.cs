@@ -1,5 +1,6 @@
 ﻿using APISimples.Models;
 using APISimples.Repositorio;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace APISimples.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<List<ConversaModel>>> GetConversasByUser(int id) 
         {
             try 
@@ -32,6 +34,7 @@ namespace APISimples.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<ConversaModel>> DeletarConversa(int id) 
         {
             try
@@ -46,6 +49,7 @@ namespace APISimples.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<ConversaModel>> AddConversa([FromBody] ConversaModel conversaModel) 
         {
             try

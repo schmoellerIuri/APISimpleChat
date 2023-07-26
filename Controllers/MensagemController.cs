@@ -1,5 +1,6 @@
 ﻿using APISimples.Models;
 using APISimples.Repositorio;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace APISimples.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<List<MensagemModel>>> GetMessages(int id)
         {
             try
@@ -32,6 +34,7 @@ namespace APISimples.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<MensagemModel>> SendMessage([FromBody] MensagemModel mensagem) 
         {
             try
@@ -47,6 +50,7 @@ namespace APISimples.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<MensagemModel>> DeleteMessage(int id) 
         {
             try

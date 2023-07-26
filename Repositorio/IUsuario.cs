@@ -9,6 +9,6 @@ namespace APISimples.Repositorio
         Task<UsuarioModel> Delete(int id);
         Task<UsuarioModel> Add(UsuarioModel usuario);
         Task<UsuarioModel> Update(UsuarioModel usuario, int id);
-        Task<UsuarioModel> DoLogin(UsuarioModel usuario);
+        Task<dynamic> DoLogin(UsuarioModel usuario);
     }
 }

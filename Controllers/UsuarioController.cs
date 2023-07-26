@@ -1,5 +1,6 @@
 ﻿using APISimples.Models;
 using APISimples.Repositorio;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace APISimples.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<UsuarioModel>>> GetUsers()
         {
             List<UsuarioModel> usuarios = await _UsuarioFactory.GetAllUsers();
@@ -25,26 +27,28 @@ namespace APISimples.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<UsuarioModel>>> GetUserById(int id)
+        [Authorize]
+        public async Task<ActionResult<UsuarioModel>> GetUserById(int id)
         {
             var usuario = await _UsuarioFactory.GetById(id);
             return Ok(usuario);
         }
 
         [HttpDelete("/{id}")]
-        public async Task<ActionResult<List<UsuarioModel>>> DeleteUser(int id)
+        [Authorize]
+        public async Task<ActionResult<UsuarioModel>> DeleteUser(int id)
         {
             var usuario = await _UsuarioFactory.Delete(id);
             return Ok(usuario);
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<List<UsuarioModel>>> Login([FromBody] UsuarioModel user)
+        public async Task<ActionResult<dynamic>> Login([FromBody] UsuarioModel user)
         {
             try
             {
-                var usuario = await _UsuarioFactory.DoLogin(user);
-                return Ok(usuario.id);
+                var response = await _UsuarioFactory.DoLogin(user);
+                return Ok(response);
             }
             catch (Exception ex) 
             {
@@ -53,7 +57,7 @@ namespace APISimples.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<UsuarioModel>>> AddUser([FromBody] UsuarioModel user)
+        public async Task<ActionResult<UsuarioModel>> AddUser([FromBody] UsuarioModel user)
         {
             try
             {
@@ -67,7 +71,8 @@ namespace APISimples.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<UsuarioModel>>> Update([FromBody] UsuarioModel user)
+        [Authorize]
+        public async Task<ActionResult<UsuarioModel>> Update([FromBody] UsuarioModel user)
         {
             try
             {
