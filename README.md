@@ -55,4 +55,8 @@ Esta API REST foi desenvolvida para atuar como o backend de um serviço de webch
 
 ## Versão em Produção
 
+O deploy da aplicação foi feito por meio de um docker container no microsoft azure.
+
+O conteiner pode ser encontrado no [Docker Hub](https://hub.docker.com/repository/docker/schmoelleriuri/simplechat-container)
+
 Uma versão em "produção" da API está disponível em [Swagger](https://api-simplechat.azurewebsites.net/swagger).
