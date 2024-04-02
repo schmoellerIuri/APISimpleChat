@@ -1,44 +1,58 @@
-API REST desenvolvida para atuar como backend de um serviço de webchat.
+# API REST para Serviço de Webchat
 
-A arquitetura possui 3 entidades:
+Esta API REST foi desenvolvida para atuar como o backend de um serviço de webchat. A arquitetura da API é composta por três entidades principais: Usuário, Conversa e Mensagem.
 
-Usuário (5 endpoints):
+## Endpoints
 
-GET - /api/Usuario -> retorna todos os usernames e ids presentes no sistema;
+### Usuário (5 endpoints):
 
-POST - /api/Usuario -> retorna o ID após a criação de um usuário e consome um JSON com informações do usuário;
+- **GET** - `/api/Usuario`:
+  Retorna todos os usernames e IDs presentes no sistema.
 
-PUT - /api/Usuario -> retorna o ID após a atualização de um usuário e consome um JSON;
+- **POST** - `/api/Usuario`:
+  Retorna o ID após a criação de um usuário e consome um JSON com informações do usuário.
 
-GET - /api/Usuario/id -> retorna o usuário com o ID de parâmetro;
+- **PUT** - `/api/Usuario`:
+  Retorna o ID após a atualização de um usuário e consome um JSON com informações do usuário.
 
-DELETE - /id -> deleta o usuário com o ID de parâmetro;
+- **GET** - `/api/Usuario/id`:
+  Retorna o usuário com o ID fornecido como parâmetro.
 
-POST - /api/Usuario/login -> realiza a autenticação do usuário de acordo com o JSON consumido;
+- **DELETE** - `/api/Usuario/id`:
+  Deleta o usuário com o ID fornecido como parâmetro.
 
-Conversa (3 endpoints):
+- **POST** - `/api/Usuario/login`:
+  Realiza a autenticação do usuário conforme o JSON consumido.
 
-GET - /api/Conversa/id -> retorna as conversas que um usuário de determinado ID está presente;
+### Conversa (3 endpoints):
 
-DELETE - /api/Conversa/id -> deleta a conversa com o determinado ID;
+- **GET** - `/api/Conversa/id`:
+  Retorna as conversas em que um usuário de determinado ID está presente.
 
-POST - /api/Conversa -> cria uma conversa a partir de um JSON consumido;
+- **DELETE** - `/api/Conversa/id`:
+  Deleta a conversa com o ID determinado.
 
-Mensagem(3 endpoints):
+- **POST** - `/api/Conversa`:
+  Cria uma conversa a partir do JSON consumido.
 
-GET - /api/Mensagem/id -> retorna todas as mensagens que uma conversa de determinado ID possui;
+### Mensagem (3 endpoints):
 
-DELETE - /api/Mensagem/id -> deleta a mensagem com determinado ID;
+- **GET** - `/api/Mensagem/id`:
+  Retorna todas as mensagens em uma conversa com o ID especificado.
 
-POST - /api/Mensagem -> envia uma mensagem, ou seja cria ela e adiciona em determinada conversa, além de utilizar um websocket para enviar a mensagem a outro usuário;
+- **DELETE** - `/api/Mensagem/id`:
+  Deleta a mensagem com o ID especificado.
 
-Nem todos os endpoints são acessíveis livremente, a maioria deles necessita de autenticação para retornar informações.
+- **POST** - `/api/Mensagem`:
+  Envia uma mensagem, criando-a e adicionando-a a uma determinada conversa. Utiliza um websocket para enviar a mensagem em tempo real para outro usuário.
 
-Outras features utilizadas:
+**Observação:** Nem todos os endpoints são acessíveis livremente; a maioria deles exige autenticação para retornar informações.
 
-Autenticação por criptografia assimétrica;
+## Recursos Adicionais
 
-Uso de websockets para envio de mensagens em tempo real;
+- Autenticação por criptografia assimétrica.
+- Uso de websockets para envio de mensagens em tempo real.
 
+## Versão em Produção
 
-Versão em "produção" : https://api-simplechat.azurewebsites.net/swagger
+Uma versão em "produção" da API está disponível em [Swagger](https://api-simplechat.azurewebsites.net/swagger).
