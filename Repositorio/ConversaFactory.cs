@@ -46,9 +46,13 @@ namespace APISimples.Repositorio
         {
             List<ConversaModel> conversas = await _dbContext.Conversas.Where(c => c.idUser1 == idUser || c.idUser2 == idUser).ToListAsync();
 
-            if (conversas == null) throw new Exception("Não exitem conversas ativas no momento");
+            return conversas ?? throw new Exception("Não exitem conversas ativas no momento");
+        }
 
-            return conversas;
+        public async Task<ConversaModel> GetConversa(int id){
+            var conversa  = await _dbContext.Conversas.FirstOrDefaultAsync(c => c.id == id);
+
+            return conversa ?? throw new Exception("Conversa inexistente");
         }
     }
 }

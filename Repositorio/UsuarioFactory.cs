@@ -82,13 +82,12 @@ namespace APISimples.Repositorio
         public async Task<UsuarioModel> Update(UsuarioModel usuario, int id)
         {
             var newUsuario = await GetById(id);
-            if (newUsuario == null) throw new Exception("Usuario não encontrado");
             newUsuario.username = usuario.username;
             newUsuario.password = ComputeMD5(usuario.password);
             _dbContext.Usuarios.Update(newUsuario);
             await _dbContext.SaveChangesAsync();
 
-            return newUsuario;
+            return newUsuario ?? throw new Exception("Usuario não encontrado");
         }
     }
 }

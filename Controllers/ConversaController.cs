@@ -3,6 +3,7 @@ using APISimples.Repositorio;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace APISimples.Controllers
 {
@@ -23,6 +24,12 @@ namespace APISimples.Controllers
         {
             try 
             {
+                var userIdFromJWt = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value);
+
+                if (userIdFromJWt != id)
+                    return Unauthorized();
+                
+
                 List<ConversaModel> conversas = await _ConversaFactory.GetConversas(id);
 
                 return Ok(conversas);
@@ -37,9 +44,16 @@ namespace APISimples.Controllers
         [Authorize]
         public async Task<ActionResult<ConversaModel>> DeletarConversa(int id) 
         {
+            
             try
             {
-                var conversa = await _ConversaFactory.DeletarConversa(id);
+                var conversa = await _ConversaFactory.GetConversa(id);
+                var userIdFromJWt = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value);
+
+                if(conversa.idUser1 != userIdFromJWt && conversa.idUser2 != userIdFromJWt)
+                    return Unauthorized();
+
+                _ = await _ConversaFactory.DeletarConversa(id);
                 return Ok(conversa);
             }
             catch(Exception ex) 
@@ -54,6 +68,10 @@ namespace APISimples.Controllers
         {
             try
             {
+                var userIdFromJWt = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value);
+                if(userIdFromJWt != conversaModel.idUser1 && userIdFromJWt != conversaModel.idUser2)
+                    return Unauthorized();
+
                 var conversa = await _ConversaFactory.CriarConversa(conversaModel);
                 return Ok(conversa);
             }
