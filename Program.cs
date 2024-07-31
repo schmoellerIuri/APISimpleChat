@@ -15,7 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var key = Encoding.ASCII.GetBytes(APISimples.Settings.secret);
+var key = Encoding.ASCII.GetBytes(APISimples.Settings.Secret);
 
 builder.Services.AddAuthentication(x =>
 {
