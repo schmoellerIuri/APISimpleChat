@@ -59,4 +59,4 @@ O deploy da aplicação foi feito por meio de um docker container no microsoft a
 
 O conteiner pode ser encontrado no [Docker Hub](https://hub.docker.com/repository/docker/schmoelleriuri/simplechat-container)
 
-Uma versão em "produção" da API está disponível em [Swagger](https://api-simplechat.azurewebsites.net/swagger).
+O site está **EM MANUTENÇÃO** no momento.
